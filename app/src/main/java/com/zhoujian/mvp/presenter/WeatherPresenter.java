@@ -1,11 +1,10 @@
 package com.zhoujian.mvp.presenter;
 
-import com.google.gson.Gson;
 import com.zhoujian.mvp.model.WeatherData;
 import com.zhoujian.mvp.network.RequestApi;
 import com.zhoujian.mvp.network.RetrofitComentUtil;
 import com.zhoujian.mvp.view.BaseView;
-import okhttp3.ResponseBody;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,7 +17,7 @@ public class WeatherPresenter
 {
     private BaseView mBaseView;
     private RequestApi mRequestApi;
-    private Call<ResponseBody> call;
+    private Call<WeatherData> call;
 
     public WeatherPresenter(BaseView mBaseView)
     {
@@ -29,15 +28,20 @@ public class WeatherPresenter
     {
         mRequestApi = RetrofitComentUtil.createService(RequestApi.class);
         call = mRequestApi.getWeatherData(cityname, key);
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<WeatherData>() {
+
+            private String mString;
+
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
+            public void onResponse(Call<WeatherData> call, Response<WeatherData> response)
             {
                 try
                 {
-                    Gson gson = new Gson();
-                    WeatherData mWeatherData = gson.fromJson(response.body().string(), WeatherData.class);
-                    mBaseView.success(mWeatherData);
+
+                    mString = response.body().toString();
+
+
+                    mBaseView.success(mString);
                 }
                 catch (Exception e)
                 {
@@ -46,7 +50,7 @@ public class WeatherPresenter
                 }
             }
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t)
+            public void onFailure(Call<WeatherData> call, Throwable t)
             {
                 mBaseView.fail("请求数据失败");
             }

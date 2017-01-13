@@ -6,6 +6,7 @@ package com.zhoujian.mvp.model;
 
 public class WeatherData
 {
+
     private String resultcode;
     private String reason;
     private ResultBean result;
@@ -76,6 +77,8 @@ public class WeatherData
 
         public static class SkBean
         {
+
+
             private String temp;
             private String wind_direction;
             private String wind_strength;

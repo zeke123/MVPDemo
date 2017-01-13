@@ -16,11 +16,24 @@ public class RetrofitComentUtil
 
     public static int DEFAULT_TIMEOUT = 5;
 
-    public static OkHttpClient mClient = new OkHttpClient.Builder()
+   public static OkHttpClient mClient = new OkHttpClient.Builder()
             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .build();
+/*
+
+    private static OkHttpClient getNewClient(){
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return new OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .build();
+    }
+*/
 
     private static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)

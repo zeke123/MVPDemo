@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.zhoujian.mvp.R;
-import com.zhoujian.mvp.model.WeatherData;
 import com.zhoujian.mvp.presenter.WeatherPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +39,7 @@ public class MainActivity extends Activity implements BaseView
     @Override
     public void success(Object object)
     {
-        mResault.setText(((WeatherData)object).toString());
+        mResault.setText(object.toString());
     }
 
     @Override
