@@ -1,5 +1,7 @@
 package com.zhoujian.mvp.presenter;
 
+import android.util.Log;
+
 import com.zhoujian.mvp.model.WeatherData;
 import com.zhoujian.mvp.network.RequestApi;
 import com.zhoujian.mvp.network.RetrofitComentUtil;
@@ -39,6 +41,10 @@ public class WeatherPresenter
                 {
 
                     mString = response.body().toString();
+
+
+                    Log.i("okhttp","返回数据==="+mString);
+
 
 
                     mBaseView.success(mString);

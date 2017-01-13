@@ -3,6 +3,7 @@ package com.zhoujian.mvp.network;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -16,16 +17,16 @@ public class RetrofitComentUtil
 
     public static int DEFAULT_TIMEOUT = 5;
 
-   public static OkHttpClient mClient = new OkHttpClient.Builder()
+  /* public static OkHttpClient mClient = new OkHttpClient.Builder()
             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-            .build();
-/*
+            .build();*/
 
-    private static OkHttpClient getNewClient(){
+
+    private static OkHttpClient getClient(){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         return new OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
@@ -33,12 +34,12 @@ public class RetrofitComentUtil
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .build();
     }
-*/
+
 
     private static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(mClient)
+            .client(getClient())
             .build();
 
     public static void TransformationUrl(String url)
@@ -46,7 +47,7 @@ public class RetrofitComentUtil
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(mClient)
+                .client(getClient())
                 .build();
     }
 
